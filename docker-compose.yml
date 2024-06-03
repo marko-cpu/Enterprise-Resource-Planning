@@ -1,35 +1,26 @@
-version: '2'
-
+version: '3'
 services:
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: erp_db
+      MYSQL_USER: marko
+      MYSQL_PASSWORD: marko123
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
   rabbitmq:
-    image: rabbitmq:management
+    image: rabbitmq:3-management
     ports:
       - "5672:5672"
       - "15672:15672"
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+      - rabbitmq
+    ports:
+      - "8080:8080"
 
-#
-#version: '3'
-#services:
-#  mysql:
-#    image: mysql:5.7
-#    environment:
-#      MYSQL_DATABASE: poslovne_app_db
-#      MYSQL_USER: marks
-#      MYSQL_PASSWORD: marks123
-#      MYSQL_ROOT_PASSWORD: password
-#    ports:
-#      - "3306:3306"
-#  rabbitmq:
-#    image: rabbitmq:3-management
-#    ports:
-#      - "5672:5672"
-#      - "15672:15672"
-#  backend:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    depends_on:
-#      - mysql
-#      - rabbitmq
-#    ports:
-#      - "8080:8080"
