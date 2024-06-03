@@ -1,7 +1,7 @@
 # Enterprise Resource Planning
 
 
-## The aim of the project is to implement ERP system modules using a microservices architecture.
+### The aim of the project is to implement ERP system modules using a microservices architecture.
 
 
 ### Key Features
