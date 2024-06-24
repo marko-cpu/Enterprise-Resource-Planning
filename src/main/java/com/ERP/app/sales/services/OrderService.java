@@ -66,6 +66,9 @@ public class OrderService {
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
+    public Optional<Order> getOrderById(Long id) {
+        return orderRepository.findById(id);
+    }
 
     @Transactional
     public void createOrder(Order order) {

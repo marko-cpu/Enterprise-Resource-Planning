@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 
 
-  //  List<Invoice> findByPayDate(LocalDate payDate);
+   List<Invoice> findByPayDate(LocalDate payDate);
 }

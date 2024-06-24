@@ -6,13 +6,11 @@ import com.ERP.app.sales.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class OrderController {
@@ -20,10 +18,19 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/orders")
+
+
+    @GetMapping("/getOrders")
     public List<Order> getAllOrders() {
         return orderService.getAllOrders();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
+        Optional<Order> order = orderService.getOrderById(id);
+        return order.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @PostMapping("/orders")
     public ResponseEntity<String>  createOrder(@RequestBody Order order) {
 
@@ -51,5 +58,7 @@ public class OrderController {
         }
 
     }
+
+
 
 }
